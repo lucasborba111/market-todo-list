@@ -5,7 +5,7 @@ export function TodoListForm () {
 
     function onChangeInput (e) {
         setItem({
-            ...data,
+            ...item,
             [e.target.name]: e.target.value
         });
     };
