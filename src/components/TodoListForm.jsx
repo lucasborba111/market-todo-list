@@ -1,28 +1,35 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Grid, TextField , Button } from "@mui/material";
 
-export function TodoListForm () {
-    const [item, setItem] = useState({});
-
-    function onChangeInput (e) {
-        setItem({
-            ...item,
-            [e.target.name]: e.target.value
-        });
-    };
-
+export function TodoListForm() {
+    const [list, setList] = useState([]);
+    const productName = useRef('');
+    const quantity = useRef('');
+    
+    useEffect(() => {
+        console.log(list);
+    }, [list]);
+  
     function createItem(e) {
         e.preventDefault();
-        console.log(item);
-    };
-
+        setList((prevList) => [
+            ...prevList,
+            { 
+                productName: productName.current.value,
+                quantity: quantity.current.value
+            }
+        ]);
+        productName.current.value = '';
+        quantity.current.value = '';
+    }
+  
     return (
-        <form onSubmit={createItem} >
-            <Grid container direction='column'>
-                <TextField name="productName" type="text" label="Produto" variant="standard" onChange={onChangeInput}/>
-                <TextField name="quantity" type="number" label="Quantidade" variant="standard" onChange={onChangeInput}/>
-                <Button type='submit'>Adicionar</Button>
-            </Grid>
-        </form>
+      <form onSubmit={createItem}>
+        <Grid container direction='column'>
+          <TextField name="productName" inputRef={productName} type="text" label="Produto" variant="standard" />
+          <TextField name="quantity" inputRef={quantity} type="number" label="Quantidade" variant="standard" />
+          <Button type='submit'>Adicionar</Button>
+        </Grid>
+      </form>
     );
 }
