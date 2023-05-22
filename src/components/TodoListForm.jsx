@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Grid, TextField , Button } from "@mui/material";
 
 export function TodoListForm () {
     const [item, setItem] = useState({});
@@ -16,10 +17,12 @@ export function TodoListForm () {
     };
 
     return (
-        <form onSubmit={createItem}>
-            <input name="productName" type="text" placeholder="Produto" onChange={onChangeInput}/>
-            <input name="quantity" type="number" placeholder="Quantidade" onChange={onChangeInput}/>
-            <button>Adicionar</button>
+        <form onSubmit={createItem} >
+            <Grid container direction='column'>
+                <TextField name="productName" type="text" label="Produto" variant="standard" onChange={onChangeInput}/>
+                <TextField name="quantity" type="number" label="Quantidade" variant="standard" onChange={onChangeInput}/>
+                <Button type='submit'>Adicionar</Button>
+            </Grid>
         </form>
     );
 }
